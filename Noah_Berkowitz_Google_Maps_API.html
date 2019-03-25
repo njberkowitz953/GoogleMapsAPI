@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Map_Noah_Berkowitz</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <style type="text/css">
+    html { height: 100% }
+	body { height: 100%; margin: 0; padding: 0 }
+	#map_Noah_Berkowitz { height: 100% }
+    </style>
+  </head>
+  <body>
+    <div id="map_Noah_Berkowitz"></div>
+    <script>
+// This example creates circles on the map, representing populations 
+
+      // First, create an object containing LatLng and population city.
+      var citymap = {
+        longbranch: {
+          center: {lat: 40.3043, lng: -73.9924},
+          population: 30762
+       }};
+
+	
+	      function initMap() {
+        // Styles a map in night mode.
+		//snazy maps flat pale
+        
+		var styledMapType = new google.maps.StyledMapType(
+		[
+    {
+        "featureType": "administrative",
+        "elementType": "labels.text.fill",
+        "stylers": [
+            {
+                "color": "#6195a0"
+            }
+        ]
+    },
+    {
+        "featureType": "administrative.province",
+        "elementType": "geometry.stroke",
+        "stylers": [
+            {
+                "visibility": "off"
+            }
+        ]
+    },
+    {
+        "featureType": "landscape",
+        "elementType": "geometry",
+        "stylers": [
+            {
+                "lightness": "0"
+            },
+            {
+                "saturation": "0"
+            },
+            {
+                "color": "#f5f5f2"
+            },
+            {
+                "gamma": "1"
+            }
+        ]
+    },
+    {
+        "featureType": "landscape.man_made",
+        "elementType": "all",
+        "stylers": [
+            {
+                "lightness": "-3"
+            },
+            {
+                "gamma": "1.00"
+            }
+        ]
+    },
+    {
+        "featureType": "landscape.natural.terrain",
+        "elementType": "all",
+        "stylers": [
+            {
+                "visibility": "off"
+            }
+        ]
+    },
+    {
+        "featureType": "poi",
+        "elementType": "all",
+        "stylers": [
+            {
+                "visibility": "off"
+            }
+        ]
+    },
+    {
+        "featureType": "poi.park",
+        "elementType": "geometry.fill",
+        "stylers": [
+            {
+                "color": "#bae5ce"
+            },
+            {
+                "visibility": "on"
+            }
+        ]
+    },
+    {
+        "featureType": "road",
+        "elementType": "all",
+        "stylers": [
+            {
+                "saturation": -100
+            },
+            {
+                "lightness": 45
+            },
+            {
+                "visibility": "simplified"
+            }
+        ]
+    },
+    {
+        "featureType": "road.highway",
+        "elementType": "all",
+        "stylers": [
+            {
+                "visibility": "simplified"
+            }
+        ]
+    },
+    {
+        "featureType": "road.highway",
+        "elementType": "geometry.fill",
+        "stylers": [
+            {
+                "color": "#fac9a9"
+            },
+            {
+                "visibility": "simplified"
+            }
+        ]
+    },
+    {
+        "featureType": "road.highway",
+        "elementType": "labels.text",
+        "stylers": [
+            {
+                "color": "#4e4e4e"
+            }
+        ]
+    },
+    {
+        "featureType": "road.arterial",
+        "elementType": "labels.text.fill",
+        "stylers": [
+            {
+                "color": "#787878"
+            }
+        ]
+    },
+    {
+        "featureType": "road.arterial",
+        "elementType": "labels.icon",
+        "stylers": [
+            {
+                "visibility": "off"
+            }
+        ]
+    },
+    {
+        "featureType": "transit",
+        "elementType": "all",
+        "stylers": [
+            {
+                "visibility": "simplified"
+            }
+        ]
+    },
+    {
+        "featureType": "transit.station.airport",
+        "elementType": "labels.icon",
+        "stylers": [
+            {
+                "hue": "#0a00ff"
+            },
+            {
+                "saturation": "-77"
+            },
+            {
+                "gamma": "0.57"
+            },
+            {
+                "lightness": "0"
+            }
+        ]
+    },
+    {
+        "featureType": "transit.station.rail",
+        "elementType": "labels.text.fill",
+        "stylers": [
+            {
+                "color": "#43321e"
+            }
+        ]
+    },
+    {
+        "featureType": "transit.station.rail",
+        "elementType": "labels.icon",
+        "stylers": [
+            {
+                "hue": "#ff6c00"
+            },
+            {
+                "lightness": "4"
+            },
+            {
+                "gamma": "0.75"
+            },
+            {
+                "saturation": "-68"
+            }
+        ]
+    },
+    {
+        "featureType": "water",
+        "elementType": "all",
+        "stylers": [
+            {
+                "color": "#eaf6f8"
+            },
+            {
+                "visibility": "on"
+            }
+        ]
+    },
+    {
+        "featureType": "water",
+        "elementType": "geometry.fill",
+        "stylers": [
+            {
+                "color": "#c7eced"
+            }
+        ]
+    },
+    {
+        "featureType": "water",
+        "elementType": "labels.text.fill",
+        "stylers": [
+            {
+                "lightness": "-49"
+            },
+            {
+                "saturation": "-53"
+            },
+            {
+                "gamma": "0.79"
+            }
+        ]
+    }
+],
+{name: "My Style"});
+// Create a map object, and include the MapTypeId to add
+// to the map type control.	
+		
+		//var main_square = {lat: -5.265532, lng: -80.676073};
+		
+		///creates new map 
+		var map = new google.maps.Map(document.getElementById("map_Noah_Berkowitz"), {
+			//set  area for long branch nj
+		 center: {lat: 40.3043, lng: -73.9924},
+          zoom: 12,
+		  //zoom level in nj
+		  mapTypeControl:true,
+		  mapTypeControlOptions: {
+mapTypeIds: ["roadmap", "satellite","styled_map", "terrain", "hybrid"],
+//maptypes
+position:google.maps.ControlPosition.TOP_RIGHT},
+streetViewControl: true,
+streetViewControlOptions: {
+position: google.maps.ControlPosition.RIGHT_TOP
+},
+zoomControl:true,
+zoomControlOptions: {
+style:google.maps.ZoomControlStyle.SMALL,
+position: google.maps.ControlPosition.RIGHT_TOP
+},
+scaleControl:true,
+					
+        });
+		
+// Construct the circle for each value in citymap.
+        // Note: We scale the area of the circle based on the population.
+        for (var city in citymap) {
+          // Add the circle for this city to the map.
+          var cityCircle = new google.maps.Circle({
+            strokeColor: '#FF0000',
+            strokeOpacity: 0.8,
+            strokeWeight: 2,
+            fillColor: '#FF0000',
+            fillOpacity: 0.35,
+            map: map,
+            center: citymap[city].center,
+            radius: Math.sqrt(citymap[city].population)
+          });
+        }
+
+var home = {lat: 40.3043, lng: -73.9924};	
+// set home to hometown  
+var marker = new google.maps.Marker({
+          position: home,
+          map: map,
+		  animation: google.maps.Animation.BOUNCE,
+          title: "Long Branch NJ home town"
+
+});
+
+var wide = {lat: 40.302077, lng: -73.977871}; 
+var marker1 = new google.maps.Marker({
+       position: wide,
+       animation: google.maps.Animation.BOUNCE,
+		map: map,
+        title: "Beach!",
+
+});
+// line feature.
+
+var ctaLayer = new google.maps.KmlLayer({
+         
+			url: 'https://drive.google.com/uc?export=download&id=1TPCBunHmAK6cA-S2QJzGMfPPEJdpq8fd',
+		  //url: 'https://drive.google.com/uc?export=download&id=1NOI-zvJSkyZ68MM7lXPGDIKlw_Ao6SVM',
+		 map: map,
+		 preserveViewport:true,
+        }); 
+		
+
+	
+        //Associate the styled map with the MapTypeId and set it to display.
+        map.mapTypes.set('styled_map', styledMapType);
+        //map.setMapTypeId('styled_map');
+      }
+	//apikey
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCebh42TF2TlFIqljvxzUHsOygZdfwpeds&callback=initMap">
+	</script>
+  </body>
+</html>
+
+
+
